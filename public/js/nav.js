@@ -1,10 +1,11 @@
 const navbar = document.querySelector('.navbar')
 
 window.addEventListener('scroll', () => {
-    console.log('scroll', scrollY)
-    if(scrollY => 180){
+    if(scrollY >= 180){
+        console.log('scroll', scrollY)
         navbar.classList.add('bg')
     }else{
+        console.log('nada')
         navbar.classList.remove('bg')
     }
 })
@@ -12,18 +13,71 @@ window.addEventListener('scroll', () => {
 const createNavbar = () => {
     navbar.innerHTML += 
     `
+    <ul class="links-container">
+
+      <li class="link-item">
+        <a href="#" class="link active">Home</a>
+      </li>
+
+      <li class="link-item">
+        <a href="#" class="link active">Product</a>
+      </li>
+
+      <li class="link-item">
+        <a href="#" class="link">About</a>
+      </li>
+
+      <li class="link-item">
+        <a href="#" class="link">Contact</a>
+      </li>
+
+    </ul>
+
+    <div class="user-interactions">
+
+      <div class="search-box"> 
+        <input type="text" class="search" placeholder="search item">
+
+        <button class="search-btn">
+            <img src="./img/search.png" alt="" class="cart-icon">
+          </button>
+
+      </div>
+    
+      <div class="cart" onclick="location.href = '/cart' ">
+
+        <img src="./img/cart.png" class="cart-icon">
+        <span class="cart-item-count">00</span>
+
+      </div>
+
+      <div class="user">
+
+        <img src="./img/user.png" class="user-icon">
+
+        <div class="user-icon-popup">
+          <p>Login to your acount</p>
+          <a>Login</a>
+        </div>
+
+      </div>
+
+    </div>
+  `
+    /*
+    `
         <ul class="links-container">
         <li class="link-item">
             <a href="#" class="link active">Home</a>
         </li>
         <li class="link-item">
-            <a href="#">Product</a>
+            <a href="#" class="link active">Product</a>
         </li>
         <li class="link-item">
-            <a href="#">About</a>
+            <a href="#" class="link active">About</a>
         </li>
         <li class="link-item">
-            <a href="#"">Contact</a>
+            <a href="#"" class="link active">Contact</a>
         </li>
     </ul>
     <div class="user-interacions">
@@ -35,17 +89,18 @@ const createNavbar = () => {
         </div>
         <div class="cart" onclick="location.href='/cart'">
             <img src="./img/cart.png" alt="" class="cart-icon">
-            <span class="cart-item-cpunt">00</span>
+            <span class="cart-item-count">00</span>
         </div>
         <div class="user">
             <img src="./img/user-icon.png" alt="" class="user-icon">
             <div class="user-icon-popup">
                 <p>Login to your account</p>
-                <p>Login</p>
+                <a>Login</a>
             </div>
         </div>
     </div>
     `
+    */
 }
 
 createNavbar()
