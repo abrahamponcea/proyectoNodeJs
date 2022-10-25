@@ -2,7 +2,7 @@ import express from "express"
 import bcrypt from "bcrypt"
 import stripe from "stripe"
 import { initializeApp } from "firebase/app"
-import { getFirestore } from 'firebase/firestore'
+import { collection, getDoc, getFirestore } from 'firebase/firestore'
 
 //Configuracion de firebase
 const firebaseConfig = {
@@ -28,6 +28,38 @@ app.use(express.json()) //Permite compartir forms
 //Ruta Home
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: 'public'})
+})
+
+//ruta para registrar
+app.get('/signup', (req, res) => {
+    res.sendFile('signup.html', { root: 'public'})
+    
+})
+
+app.post('/signup', (req, res) => {
+    const{ name, email, password, number, tac } = req.body
+    //validaciones
+    if(name.length < 3){
+        res.json({'alert': 'name must be 3 letters long'})
+    }else if(email){
+        res.json({ 'alert': 'enter your email' })
+    }else if(password.length < 8){
+        res.json({'alert': 'password must be 8 letters long'})
+    }else if(!Number(number) || number.length < 10){
+        res.json({ 'alert': 'invalid number, please enter valid one'})
+    }else if(!tac){
+        res.json({ 'aler': 'you must agree to our terms'})
+    }else{
+        //Almacenar datos en DB
+        const users = collection(db, "users")
+        getDoc(doc(users, email)).then(user => {
+            if(user.exists()){
+                res.json({ 'alert': 'email already exists'})
+            }else{
+                //encriptar password
+            }
+        })
+    }
 })
 
 app.listen(3000, () => {
